@@ -18,9 +18,8 @@ class MyRobot:
             self.bot = Bot(console_qr=2, cache_path=True)
         else:
             print("cannot determine your system!!")
-        self.friend = self.bot.friends().search(self.config.wechat_name)[0]
-
         self.config = config.Config()
+        self.friend = self.bot.friends().search(self.config.wechat_name)[0]
 
     def reload(self):
         reload(config)
@@ -36,22 +35,21 @@ class MyRobot:
             self.send_message(choice(self.config.str_list_good_morning))
 
 
-bot = ''
-friend = ''
-if __name__ == "__main__":
-    my_robot = MyRobot()
-    bot = my_robot.bot
-    friend = my_robot.friend
-    while True:
-        my_robot.reload()
-        my_robot.care()
-        time.sleep(60)
-
-
-@bot.register(chats=friend, except_self=False)
+my_robot = MyRobot()
+bot = my_robot.bot
+friend = my_robot.friend
+@bot.register(friend)
 def on_receive(msg):
     print(msg.text)
     # call chat robot api
-    reply = ""
+    reply = "布吉岛"
     friend.send(reply)
+
+while True:
+    my_robot.reload()
+    my_robot.care()
+    time.sleep(60)
+
+
+
 
