@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 chatbot = ChatBot("ChineseChatbot1")
@@ -29,3 +30,17 @@ question = "生命、宇宙以及世间万物的终极答案是什么?"
 print(question)
 print(chatbot.get_response(question))
 print("###########################################")
+
+# from chatterbot import ChatBot
+# from chatterbot.trainers import ChatterBotCorpusTrainer
+#
+# chatbot = ChatBot('Ron Obvious')
+#
+# # Create a new trainer for the chatbot
+# trainer = ChatterBotCorpusTrainer(chatbot)
+#
+# # Train the chatbot based on the english corpus
+# trainer.train("chatterbot.corpus.english")
+#
+# # Get a response to an input statement
+# print(chatbot.get_response("Hello, how are you today?"))

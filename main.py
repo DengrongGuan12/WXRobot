@@ -6,6 +6,8 @@ import time
 from importlib import reload
 from plugins import config
 from random import choice
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
 
 class MyRobot:
@@ -20,6 +22,9 @@ class MyRobot:
             print("cannot determine your system!!")
         self.config = config.Config()
         self.friend = self.bot.friends().search(self.config.wechat_name)[0]
+        self.chatbot = ChatBot("ChineseChatbot1")
+        trainer = ChatterBotCorpusTrainer(self.chatbot)
+        trainer.train("chatterbot.corpus.chinese")
 
     def reload(self):
         reload(config)
@@ -38,11 +43,13 @@ class MyRobot:
 my_robot = MyRobot()
 bot = my_robot.bot
 friend = my_robot.friend
+chatterBot = my_robot.chatbot
 @bot.register(friend)
 def on_receive(msg):
     print(msg.text)
     # call chat robot api
-    reply = "布吉岛"
+    reply = chatterBot.get_response(msg.txt)
+    print(reply)
     friend.send(reply)
 
 while True:
